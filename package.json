@@ -1,0 +1,19 @@
+{
+  "name": "slidev-resources",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "new": "scaffdog generate new_slide",
+    "slidev": "node ./scripts/slidev-runner.js"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^0.48.7",
+    "@slidev/theme-default": "^0.25.0",
+    "scaffdog": "^3.0.0"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@slidev/theme-seriph": "^0.25.0"
+  }
+}
