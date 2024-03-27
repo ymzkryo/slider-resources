@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "new": "scaffdog generate new_slide",
-    "slidev": "node ./scripts/slidev-runner.js"
+    "dev": "node scripts/slidev-runner.js",
+    "build": "node scripts/slidev-build.js",
+    "export-pdf": "node scripts/slidev-export-pdf.js",
+    "export-pdf:dark": "node scripts/slidev-export-pdf-dark.js"
   },
   "devDependencies": {
     "@slidev/cli": "^0.48.7",
     "@slidev/theme-default": "^0.25.0",
+    "playwright-chromium": "^1.42.1",
     "scaffdog": "^3.0.0"
   },
   "main": "index.js",
