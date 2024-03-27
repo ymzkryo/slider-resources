@@ -32,10 +32,10 @@ jobs:
       - run: yarn install
       - name: Export slidev as PDF
         run: yarn slidev export --output dist/${GITHUB_REF##*/}.pdf ${GITHUB_REF##}/slides.md
-      - uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            dist/*.pdf
+          # - uses: softprops/action-gh-release@v1
+          #   with:
+          #     files: |
+          #       dist/*.pdf
       - name: Check if OGP is enabled
         id: checkOGP
         uses: ./.github/actions/checkOGP
@@ -44,7 +44,7 @@ jobs:
       - name: Generate index.html before building SPA
         if: ${{ steps.checkOGP.outputs.ogp == 'true' }}
         run: |
-          yarn slidev build:before --slide=${GITHUB_REF##*/} --pagesurl=${{ steps.configure-pages.outputs.base_url }}
+          yarn slidev build ${GITHUB_REF##*/} --pagesurl=${{ steps.configure-pages.outputs.base_url }}
       - name: Build slidev as SPA
         run: yarn slidev build --slide=${GITHUB_REF##*/}
       - name: Generate preview image for OGP
