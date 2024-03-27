@@ -3,8 +3,6 @@ on:
   push:
     branches-ignore:
       - "*"
-        #     tags:
-        # - "v*.*.*"
 
 concurrency: release-slidev
 
@@ -15,8 +13,8 @@ jobs:
       pages: read
     runs-on: ubuntu-latest
     steps:
-      - name: Install Japanese font            # Insert these 2 lines
-        run: sudo apt install -y fonts-noto    #     to install Japanese font
+      - name: Install Japanese font
+        run: sudo apt install -y fonts-noto
       - name: Setup Pages
         id: configure-pages
         uses: actions/configure-pages@v3
@@ -33,3 +31,14 @@ jobs:
         run: yarn install
       - name: Export slidev as PDF
         run: node scripts/slidev-export-pdf-dark.js
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            slides.pdf
+            #   token: ${{ secrets.GITHUB_TOKEN }}
+            #   release_name: ${{ github.sha }}
+            #   release_body: |
+            #     Release slidev
+            #   release_tag: ${{ github.sha }}
+            #   draft: false
+            #   prerelease: false
