@@ -29,39 +29,7 @@ jobs:
         with:
           node-version: 21
           cache: "yarn"
-      - run: yarn install
+      - name: Install dependencies
+        run: yarn install
       - name: Export slidev as PDF
-        run: yarn slidev export --output dist/${GITHUB_REF##*/}.pdf ${GITHUB_REF##}/slides.md
-          # - uses: softprops/action-gh-release@v1
-          #   with:
-          #     files: |
-          #       dist/*.pdf
-          #  - name: Check if OGP is enabled
-          #    id: checkOGP
-          #    uses: ./.github/actions/checkOGP
-          #    with:
-          #      file: ${GITHUB_REF##*/}/slides.md
-          # - name: Generate index.html before building SPA
-          #   if: ${{ steps.checkOGP.outputs.ogp == 'true' }}
-          #   run: |
-          #     yarn slidev build ${GITHUB_REF##*/} --pagesurl=${{ steps.configure-pages.outputs.base_url }}
-          # - name: Build slidev as SPA
-          #   run: yarn slidev build --slide=${GITHUB_REF##*/}
-          # - name: Generate preview image for OGP
-          #   if: ${{ steps.checkOGP.outputs.ogp == 'true' }}
-          #   run: |
-          #     yarn slidev build:after --slide=${GITHUB_REF##*/}
-      - name: Deploy pages
-        uses: crazy-max/ghaction-github-pages@v3
-        with:
-          keep_history: true
-          build_dir: docs
-          verbose: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            # update:
-            #   needs: release
-            #   permissions:
-            #     contents: write
-            #   uses: ./.github/workflows/update-index-md.yml
-            #   secrets: inherit
+        run: node scripts/slidev-export-pdf-dark.js
