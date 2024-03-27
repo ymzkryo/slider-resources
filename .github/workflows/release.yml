@@ -36,11 +36,11 @@ jobs:
           #   with:
           #     files: |
           #       dist/*.pdf
-      - name: Check if OGP is enabled
-        id: checkOGP
-        uses: ./.github/actions/checkOGP
-        with:
-          file: ${GITHUB_REF##*/}/slides.md
+          #  - name: Check if OGP is enabled
+          #    id: checkOGP
+          #    uses: ./.github/actions/checkOGP
+          #    with:
+          #      file: ${GITHUB_REF##*/}/slides.md
       - name: Generate index.html before building SPA
         if: ${{ steps.checkOGP.outputs.ogp == 'true' }}
         run: |
