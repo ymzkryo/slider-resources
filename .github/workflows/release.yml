@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: 16
           cache: "yarn"
-      - run: yarn ci
+      - run: yarn install
       - name: Export slidev as PDF
         run: yarn slidev export --slide=${GITHUB_REF##*/} && yarn slidev export:dark --slide=${GITHUB_REF##*/}
       - uses: softprops/action-gh-release@v1
