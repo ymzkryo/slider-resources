@@ -63,5 +63,5 @@ jobs:
     needs: release
     permissions:
       contents: write
-    uses: ./.github/workflows/update-index-page.yaml
+    uses: ./.github/workflows/update-index-md.yml
     secrets: inherit
