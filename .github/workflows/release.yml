@@ -3,6 +3,8 @@ on:
   push:
     branches-ignore:
       - "*"
+    tags:
+      - "v*"
 
 concurrency: release-slidev
 
@@ -34,11 +36,4 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           files: |
-            slides.pdf
-            #   token: ${{ secrets.GITHUB_TOKEN }}
-            #   release_name: ${{ github.sha }}
-            #   release_body: |
-            #     Release slidev
-            #   release_tag: ${{ github.sha }}
-            #   draft: false
-            #   prerelease: false
+            dist/*.pdf
