@@ -18,7 +18,7 @@ githubPages:
 
 ---
 
-## 講義のアジェンダ
+# 講義のアジェンダ
 
 1. Webアプリケーションの概要
 2. Webアプリケーションのアーキテクチャ
@@ -27,6 +27,11 @@ githubPages:
 5. APIを利用したデータ交換
 6. 簡単なAPIのデモと実装
 7. Q&A
+
+<!--
+このセクションでは、講義全体の流れと各トピックについて簡単に紹介する。  
+質問があれば、いつでも遠慮なく聞いて。  
+-->
 
 ---
 
@@ -179,8 +184,8 @@ sequenceDiagram
 # APIとは何か？
 
 - API（アプリケーションプログラミングインターフェース）の定義
-- Web APIの役割
-- 公開APIとプライベートAPI
+- APIの主な利点
+- APIの種類
 
 ---
 
@@ -207,13 +212,6 @@ API（Application Programming Interface）は、ソフトウェア間でのイ�
 
 ---
 
-# RESTful APIとは
-
-RESTful APIは、ウェブAPIの一種で、RESTアーキテクチャの原則に基づいて設計される。  
-リソースの概念に基づくシンプルで標準化されたインターフェースを提供し、HTTPメソッド（GET, POST, PUT, DELETE）を利用してリソースの操作を行う。
-
----
-
 # なぜAPIが重要なのか？
 
 APIは、モダンなソフトウェア開発において不可欠な役割を果たす。  
@@ -230,11 +228,208 @@ APIにより、開発の効率化、サービスの連携、イノベーショ�
 
 ---
 
-# APIを利用したデータ交換
+# RESTful APIとは
 
-- JSONとXML
-- リクエストとレスポンスの構造
-- ステータスコードとエラーハンドリング
+RESTful APIは、ウェブAPIの一種で、RESTアーキテクチャの原則に基づいて設計される。  
+リソースの概念に基づくシンプルで標準化されたインターフェースを提供し、HTTPメソッド（GET, POST, PUT, DELETE）を利用してリソースの操作を行う。
+
+---
+
+# RESTの原則 - 概要
+
+REST（Representational State Transfer）は、分散システム設計のためのアーキテクチャスタイルである。  
+RESTの原則に基づくAPIは「RESTful」と呼ばれ、ステートレスな通信、リソースへのアクセス、統一インターフェースなどの特徴を持つ。  
+これらの原則に従うことで、シンプルで拡張可能、かつ互換性の高いWebサービスを設計できる。
+
+---
+
+# RESTの原則 - 主な特徴
+
+- **ステートレス性**: クライアントとサーバー間の通信はステートレスであり、各リクエストは独立して完全なものでなければならない。  
+- **リソースの識別**: システム内のすべてのリソースは、一意の識別子（URI）を持ち、クライアントはこれを用いてリソースにアクセスする。  
+- **統一インターフェース**: シンプルで一貫したインターフェースを通じてリソースの操作を行う。
+
+---
+
+# HTTPメソッド - 概要
+
+RESTful APIでは、HTTPメソッドを用いてリソースに対する操作を表現する。  
+主にGET、POST、PUT、DELETEの4つのメソッドが使用され、それぞれ読み取り、作成、更新、削除の操作に対応している。  
+これにより、APIの利用者はHTTPプロトコルの標準に従ってリソースの管理を行うことができる。
+
+---
+
+# HTTPメソッド - 使用例
+
+- **GET**: リソースの取得。サーバーから情報を取得するために使用される。
+- **POST**: リソースの作成。新しいリソースをサーバーに追加するために使用される。
+- **PUT**: リソースの更新。既存のリソースを更新するために使用される。
+- **DELETE**: リソースの削除。指定されたリソースをサーバーから削除するために使用される。
+
+---
+
+# URI設計のベストプラクティス - 概要
+
+RESTful APIのURI設計は、直感的で理解しやすいものでなければならない。  
+リソースの階層構造を表現するためにパスを使用し、リソースの操作はHTTPメソッドによって表現される。  
+良いURI設計は、APIの使いやすさとメンテナンス性を向上させる。
+
+---
+
+# URI設計のベストプラクティス - 具体例
+
+- リソースは名詞で表現する。例: `/users`, `/orders`
+- リソースのコレクションと個別のエンティティを区別する。例: `/users`（ユーザーのコレクション）、`/users/123`（IDが123のユーザー）
+- アクションはリソースの状態変更をHTTPメソッドで表現し、URIにアクションを含めない。
+
+---
+
+# RESTful APIの設計 - GET フロー
+
+```mermaid
+sequenceDiagram
+    participant C as クライアント
+    participant S as サーバー
+    C->>+S: GET /resources
+    Note over S: リソースの取得
+    S-->>-C: 200 OK (リソースデータ)
+```
+
+---
+
+# RESTful APIの設計 - POST フロー
+
+```mermaid
+sequenceDiagram
+    participant C as クライアント
+    participant S as サーバー
+    C->>+S: POST /resources
+    Note over S: リソースの作成
+    S-->>-C: 201 Created
+```
+
+---
+
+# RESTful APIの設計 - PUT フロー
+
+```mermaid
+sequenceDiagram
+    participant C as クライアント
+    participant S as サーバー
+    C->>+S: PUT /resources/{id}
+    Note over S: リソースの更新
+    S-->>-C: 200 OK
+```
+
+---
+
+# RESTful APIの設計 - DELETE フロー
+
+```mermaid
+sequenceDiagram
+    participant C as クライアント
+    participant S as サーバー
+    C->>+S: DELETE /resources/{id}
+    Note over S: リソースの削除
+    S-->>-C: 204 No Content
+```
+
+---
+
+# APIを利用したデータ交換 - 概要
+
+APIを通じたデータ交換では、クライアントがサーバーに対してリクエストを送信し、  
+サーバーはそれに応じたレスポンスを返す。  
+このプロセスは、HTTPプロトコルを基にしており、Webサービスの基礎を成す。
+
+---
+
+# リクエストの構造
+
+リクエストは主に以下の部分で構成される：
+- **HTTPメソッド**: サーバーで実行すべきアクションの種類（例：GET, POST, PUT, DELETE）。
+- **URI**: アクセスしたいリソースの場所を指定する。
+- **ヘッダー**: 認証情報、コンテンツタイプなどのメタデータを含む。
+- **ボディ**: POSTやPUTリクエストで送信するデータ。JSON形式で記述されることが多い。
+
+---
+
+# レスポンスの構造
+
+レスポンスは次の部分から成る：
+- **ステータスコード**: リクエストが成功したかどうかを示す数値コード（例：200 OK, 404 Not Found）。
+- **ヘッダー**: コンテンツタイプやセキュリティ関連の情報など、レスポンスに関するメタデータ。
+- **ボディ**: クライアントに返される実際のデータ。リクエストに基づいた結果や情報が含まれる。
+
+---
+
+## GET サンプルリクエスト
+```
+GET /api/users/123 HTTP/1.1
+Host: example.com
+Accept: application/json
+Authorization: Bearer {トークン}
+```
+<br>
+
+## GET サンプルレスポンス
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: {長さ}
+
+{
+  "id": 123,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+---
+
+## POST サンプルリクエスト
+```
+POST /api/users HTTP/1.1
+Host: example.com
+Content-Type: application/json
+Authorization: Bearer {トークン}
+
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com"
+}
+
+```
+<br>
+
+## POST サンプルレスポンス
+
+```
+HTTP/1.1 201 Created
+Content-Type: application/json
+Content-Length: {長さ}
+
+{
+  "id": 124,
+  "name": "Jane Doe",
+  "email": "jane@example.com"
+}
+
+```
+
+---
+
+# データ交換のフロー図
+
+```mermaid
+sequenceDiagram
+    participant C as クライアント
+    participant S as サーバー
+    C->>+S: リクエスト (GET /api/data)
+    Note over S: データの処理
+    S-->>-C: レスポンス (200 OK, データ)
+```
 
 ---
 
@@ -247,7 +442,78 @@ APIにより、開発の効率化、サービスの連携、イノベーショ�
 
 ---
 
+# FastAPIの紹介
+
+FastAPIは、現代的で高速なWeb APIを構築するためのPythonフレームワークである。  
+非同期処理をフルに活用し、高いパフォーマンスを実現している点が特徴である。  
+Python 3.6+の型ヒントを利用した簡潔でエラーに強いコードの記述を可能にし、  
+自動的にインタラクティブなAPIドキュメントを生成する。
+
+FastAPIは、開発者がRESTful APIを迅速に開発できるように設計されており、  
+データのバリデーション、シリアライゼーション、ドキュメント生成など、  
+API開発に必要な多くの機能を備えている。
+
+- 公式ドキュメント: [FastAPI](https://fastapi.tiangolo.com/)
+- GitHubリポジトリ: [tiangolo/fastapi](https://github.com/tiangolo/fastapi)
+
+FastAPIを使うことで、効率的かつ直感的にAPIを構築でき、  
+PythonでのモダンなWeb開発を強力にサポートする。
+
+---
+
+# API構築の準備
+
+APIを構築する前に、その目的と要件を明確にすることが重要である。  
+利用者のニーズを理解し、提供したいデータや機能について決定する。  
+この段階で、APIの仕様書や設計ドキュメントの作成を始めると良い。
+
+---
+
+# APIの設計
+
+APIの設計は、開発プロセスにおいて中心的な役割を果たす。  
+RESTful原則に従い、リソース指向のアーキテクチャを採用することが多い。  
+エンドポイントの定義、HTTPメソッドの選択、レスポンス形式の決定などが含まれる。  
+この段階で、OpenAPIのような仕様を用いてAPIのインターフェースを正式に定義すると有効である。
+
+---
+
+# APIの開発
+
+設計が完了したら、APIの実装に移る。  
+多くの場合、フレームワークを使用して開発を行う。PythonであればFastAPIやFlaskが、  
+JavaScriptであればExpress.jsが選択肢として挙げられる。  
+データベースとの連携、認証・認可の仕組み、エラーハンドリングなど、  
+必要な機能を実装する。
+
+---
+
+# APIのテストとデプロイ
+
+開発が一段落したら、APIをテストする。  
+単体テスト、統合テストを行い、想定されるリクエストに対するレスポンスを検証する。  
+PostmanやSwaggerなどのツールを使って、手動でのエンドポイントテストも有効である。  
+問題がなければ、APIを本番環境にデプロイする。クラウドサービスやオンプレミスのサーバーに配置し、  
+利用者に公開する。
+
+---
+
+# FastAPIを使用したデモAPIの構築
+
+<div>
+    <iframe width="100%" height="400"src="https://gist.github.com/ymzkryo/5f66fb90e9a8a9321fb51e404490ff9b.pibb"></iframe>
+</div>
+
+<!-- Gist URL: https://gist.github.com/ymzkryo/5f66fb90e9a8a9321fb51e404490ff9b -->
+
+---
+
 # Q&A
 
 - 質疑応答のセッション
 
+---
+layout: end
+
+---
+---
