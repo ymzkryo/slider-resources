@@ -11,28 +11,116 @@ title: 2024-04-23_logging_error_handling
 mdc: true
 githubPages:
   ogp: true
+
 ---
 
-# Welcome to Slidev
+# ロギングとエラーハンドリング
 
-Presentation slides for developers
 
-<div class="pt-12">
-  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
-  </span>
-</div>
+---
 
-<div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub" title="Open in GitHub"
-    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon-logo-github />
-  </a>
-</div>
+# 講義のアジェンダ
 
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
+- はじめに
+- ロギング設計
+- FastAPIでのロギング
+- エラーハンドリング設計
+- FastAPIでのエラーハンドリング
+- Q&A
+- おわりに
+
+---
+
+# はじめに
+
+- ロギングとエラーハンドリングの定義
+- 目的と重要性
+
+---
+
+# ロギングとエラーハンドリングの定義
+
+---
+
+# 目的と重要性
+
+---
+
+# ロギング設計
+
+- ロギングの目的と基本原則
+- local開発環境 vs. production環境
+- ロギングレベルと使用例
+- ログのフォーマットと構造
+
+---
+
+# ロギングの目的と基本原則
+
+---
+
+# local開発環境 vs. production環境
+
+---
+
+# ロギングレベルと使用例
+
+---
+
+# ログのフォーマットと構造
+
+---
+
+# FastAPIでのロギング
+
+- 設定方法
+- ベストプラクティスと例
+
+---
+
+# 設定方法
+
+---
+
+# ベストプラクティスと例
+
+---
+
+# エラーハンドリング設計
+- エラーの種類と例外処理
+- カスタムエラーの定義と使用方法
+
+---
+
+# エラーの種類と例外処理
+
+---
+
+# カスタムエラーの定義と使用方法
+
+---
+
+# FastAPIでのエラーハンドリング
+- 設定方法
+- ベストプラクティスと例
+
+---
+
+# 設定方法
+
+---
+
+# ベストプラクティスと例
+
+---
+
+# Q&A
+
+## 質疑応答のセッション
+
+---
+
+## おわりに
+
+- ロギングとエラーハンドリングの実践
+- さらなる資源と学習のためのリンク
