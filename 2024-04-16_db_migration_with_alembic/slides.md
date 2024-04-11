@@ -23,6 +23,8 @@ githubPages:
 # 講義のアジェンダ
 
 - FastAPIでのデータベース操作
+- FastAPIにおけるデータベース接続
+- データモデリングの原則
 - マイグレーションのベストプラクティス
 - アンチパターンの例
 - Q&A
@@ -321,6 +323,185 @@ Base = declarative_base()
 -->
 
 ---
+
+# データモデリングの原則
+
+効果的なデータモデリングは、データの整合性を保ち、アプリケーションの拡張性とメンテナンス性を向上させます。このセクションでは、データモデリングの基本原則と、それらがどのようにデータベース設計に影響を与えるかについて解説します。
+
+## 主要な考慮事項
+- **正規化**: データの冗長性を排除し、整合性を保つ。
+- **非正規化**: パフォーマンスを向上させるために適度な冗長性を許容する。
+- **リレーショナルデザイン**: テーブル間の関係を明確に定義する。
+
+<!-- 
+データモデリングは、単にデータを格納するためのテーブルを作成すること以上の意味を持ちます。適切なデータモデリングは、データアクセスの最適化、将来の拡張や変更への柔軟性、そして何よりデータの正確性と信頼性の確保に不可欠です。このセクションでは、これらの原則を実践するための戦略とパターンを詳しく見ていきます。
+-->
+
+---
+
+# データモデリングの原則 - 1:nの関係
+
+```python
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import declarative_base, relationship
+
+Base = declarative_base()
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+    posts = relationship('Post', back_populates='user')
+
+class Post(Base):
+    __tablename__ = 'posts'
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    content = Column(String)
+    user_id = Column(Integer, ForeignKey('users.id'))
+
+    user = relationship('User', back_populates='posts')
+
+```
+
+<!--このコードでは、Userクラスが複数のPostインスタンスを持つことができるようにrelationshipを設定しています。Postクラスでは、ForeignKeyを使ってuser_idカラムをusersテーブルのidカラムに紐づけ、各投稿がどのユーザーに属しているかを定義しています。back_populates属性を使用することで、双方向の関係が確立され、UserからそのユーザーのPostへ、またPostからその投稿を作成したUserへのアクセスが可能になります。  
+1:n関係の一般的な例として、UsersテーブルとPostsテーブルを使ったブログシステムを想定します。ここでは、1人のユーザーが複数の投稿（Posts）を持つことができるようにモデルを定義します。-->
+
+---
+
+# データモデリングの原則 - 中間テーブルの利用
+
+```python
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy.orm import declarative_base, relationship
+
+Base = declarative_base()
+UserItems = Table('user_items', Base.metadata,
+    Column('user_id', ForeignKey('users.id'), primary_key=True),
+    Column('item_id', ForeignKey('items.id'), primary_key=True)
+)
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+    items = relationship('Item', secondary=UserItems, back_populates='users')
+
+class Item(Base):
+    __tablename__ = 'items'
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+
+    users = relationship('User', secondary=UserItems, back_populates='items')
+
+```
+
+<!-- 
+データモデリングにおける`n:m`（多対多）関係を扱う際、中間テーブルが重要な役割を果たす。この例では、`Users`と`Items`間の関係を表すために`UserItems`中間テーブルを使用し、これによりユーザーとアイテム間の柔軟な関連付けを実現する。
+
+## コード解説
+- **中間テーブルの定義**: `UserItems`は`Users`と`Items`の`id`を外部キーとして持ち、それぞれのテーブルを結びつける。
+- **関係性の定義**: `Users`と`Items`の間に多対多の関係が存在し、`relationship`を通じて相互に関連付けられる。
+
+`Users`テーブルと`Items`テーブルは、それぞれユーザーとアイテムの情報を保持します。しかし、ユーザーが複数のアイテムを所有し、同時にアイテムが複数のユーザーに属することができるため、これら二つのテーブルだけでは関係を表現できません。ここで`UserItems`中間テーブルが登場し、ユーザーIDとアイテムIDの組み合わせにより、多対多の関係を効果的に管理します。このテクニックにより、データ構造が直感的になり、アプリケーションのロジックをシンプルに保つことができます。
+-->
+---
+
+
+# データモデリングの原則 - class図
+
+## 1:nの関係
+```mermaid
+classDiagram
+    Post -- User : has
+    
+    class Post {
+      +int id
+      +string title
+      +string content
+      +int user_id
+    }
+
+    class User {
+      +int id
+      +string name
+    }
+```
+
+---
+
+
+# データモデリングの原則 - class図
+
+## n:mの関係
+
+```mermaid
+classDiagram
+    User -- UserItems : <
+    Item -- UserItems : <
+
+    class User {
+      +int id
+      +string name
+    }
+    
+    class Item {
+      +int id
+      +string title
+    }
+    
+    class UserItems {
+      +int user_id
+      +int item_id
+    }
+```
+
+---
+layout: two-cols
+
+---
+
+# FastAPIプロジェクトのディレクトリ構造
+
+FastAPIプロジェクトを整理し、メンテナンスしやすくするために、適切なディレクトリ構造を採用することが重要です。以下は、一般的なFastAPIプロジェクトのディレクトリ構造の例です。
+
+::right::
+
+## ディレクトリ構造の例
+```
+project_name/
+├── app/
+│ ├── init.py
+│ ├── api/
+│ │ ├── init.py
+│ │ ├── dependencies.py
+│ │ └── routers.py
+│ ├── models/
+│ │ ├── init.py
+│ │ └── models.py
+│ ├── schemas/
+│ │ ├── init.py
+│ │ └── schemas.py
+│ ├── crud/
+│ │ ├── init.py
+│ │ └── crud.py
+│ ├── core/
+│ │ ├── init.py
+│ │ └── config.py
+│ └── db/
+│ ├── init.py
+│ └── database.py
+└── main.py
+```
+
+<!--
+この構造はFastAPIプロジェクトにおける機能の論理的な分離を促進します。`app`ディレクトリにはアプリケーションのコアコンポーネントが格納され、サブディレクトリにはそれぞれ特定の役割が割り当てられています。例えば、`api`ディレクトリではAPIのエンドポイントと依存関係が管理され、`models`ディレクトリではデータベースモデルが定義されます。このように各部分を分けることで、開発の効率化、テストの容易さ、そしてメンテナンスのシンプルさが実現されます。
+-->
+
+---
+
+
 
 # マイグレーションのベストプラクティス
 
