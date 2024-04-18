@@ -930,4 +930,9 @@ CustomErrorというカスタムエラークラスが定義されています。
 - [FastAPI Custom Exception Handling](https://fastapi.tiangolo.com/advanced/custom-response/)
 - [FastAPI Dependency Injection](https://fastapi.tiangolo.com/tutorial/dependencies/)
 - [FastAPI Logging](https://fastapi.tiangolo.com/tutorial/logging/)
+- [Release It! 本番用ソフトウェア製品の設計とデプロイのために](https://amzn.to/4b06mHz)
+- [Release It!: Design and Deploy Production-Ready Software (English Edition) 2nd](https://amzn.to/3W2XoF8)
+- [Logging in Action: With Fluentd, Elasticsearch, and Kibana](https://amzn.to/4aBiFuj)
+- [Effective Java (3rd Edition)](https://amzn.to/3Wb2tv4)
+- [7.Pythonのデバッグとエラーハンドリングのマスター : バグの特定、トラブルシューティング、エラーメッセージの解読](https://amzn.to/4b2MCmS)
 
