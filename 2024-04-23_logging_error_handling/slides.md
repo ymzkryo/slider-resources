@@ -934,4 +934,5 @@ CustomErrorというカスタムエラークラスが定義されています。
 - [Release It!: Design and Deploy Production-Ready Software (English Edition) 2nd](https://amzn.to/3W2XoF8)
 - [Logging in Action: With Fluentd, Elasticsearch, and Kibana](https://amzn.to/4aBiFuj)
 - [Effective Java (3rd Edition)](https://amzn.to/3Wb2tv4)
+- [7.Pythonのデバッグとエラーハンドリングのマスター : バグの特定、トラブルシューティング、エラーメッセージの解読](https://amzn.to/4b2MCmS)
 
