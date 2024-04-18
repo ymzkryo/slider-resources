@@ -783,3 +783,11 @@ sequenceDiagram
 ## 質疑応答のセッション
 
 ---
+
+# 参考資料
+
+- [OAuth 2 in Action (https://amzn.to/3vVPQcQ)
+- [Identity and Data Security for Web Development: Best Practices](https://amzn.to/49KkZxw)
+- [Mastering OAuth 2.0](https://amzn.to/442Xe2C)
+- [OAuth徹底入門 セキュアな認可システムを適用するための原則と実践](https://amzn.to/4d5Wde8)
+- [Software Design (ソフトウェアデザイン) 2020年11月号 [雑誌](https://amzn.to/447QBvO)
