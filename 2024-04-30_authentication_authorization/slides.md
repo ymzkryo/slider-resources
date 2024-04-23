@@ -175,7 +175,7 @@ OAuthについて詳しく解説します。OAuthはサードパーティアプ�
 
 # OAuthの処理フロー
 
-```mermaid {theme:'dark', scale: 0.75}
+```mermaid {scale: 0.75}
 sequenceDiagram
     participant U as ユーザー
     participant C as クライアントアプリケーション
@@ -398,7 +398,7 @@ HTTPSは、インターネット上でのデータ送信のセキュリティを
 
 # JWTによる認証 - 処理フロー
 
-```mermaid {theme:'dark', scale: 0.6}
+```mermaid {scale: 0.6}
 sequenceDiagram
     participant U as ユーザー
     participant C as クライアント
@@ -609,7 +609,7 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
 
 # FastAPI+JWTによる認証の実装 - 処理フロー
 
-```mermaid {theme:'dark', scale: 0.55}
+```mermaid {scale: 0.55}
 sequenceDiagram
     participant C as クライアント
     participant A as FastAPIアプリケーション
@@ -684,7 +684,7 @@ async def read_items():
 
 # パーミッションベース認可の実装 - 処理フロー
 
-```mermaid {theme:'dark', scale: 0.55}
+```mermaid {scale: 0.55}
 sequenceDiagram
     participant Client as クライアント
     participant FastAPI as FastAPIアプリケーション
