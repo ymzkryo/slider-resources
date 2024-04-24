@@ -8,7 +8,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+        with:
+          ref: gh-pages
       - name: Update index.md
         run: |
           echo "## Hello World" >> index.md
