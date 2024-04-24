@@ -1,0 +1,39 @@
+name: Release slidev
+on:
+  push:
+    branches-ignore:
+      - "*"
+    tags:
+      - "v*"
+
+concurrency: release-slidev
+
+jobs:
+  release:
+    permissions:
+      contents: write
+      pages: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Japanese font
+        run: sudo apt install -y fonts-noto
+      - name: Setup Pages
+        id: configure-pages
+        uses: actions/configure-pages@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 21
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn install
+      - name: Export slidev as PDF
+        run: node scripts/slidev-export-pdf-dark.js
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*.pdf

@@ -1,0 +1,23 @@
+name: Update index page
+on:
+  workflow_dispatch:
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+      - name: Update index.md
+        run: |
+          echo "## Hello World" >> index.md
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "ymzk.yamachan@gmail.com"
+          git config --global user.name "ymzkryo"
+          git add index.md
+          git commit -m "Update index.md"
+          git push
